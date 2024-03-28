@@ -28,8 +28,8 @@ class hop_dong(models.Model):
         ('expired', 'Expired'),
         ('pause', 'Pause')],
         string='Status', default='new')
-
-    total_salary = fields.Float(string='Total Salary', compute='_compute_total_salary')
+    employee_id = fields.Many2one('employee.employee', string='Nhân viên')
+    total_salary = fields.Float(String="Total Salary", compute='_compute_total_salary')
 
     @api.depends('salary_rack', 'efficiency_wage')
     def _compute_total_salary(self):

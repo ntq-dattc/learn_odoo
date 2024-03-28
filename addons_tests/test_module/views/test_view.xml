@@ -24,7 +24,8 @@
             <field name="arch" type="xml">
                 <search>
                     <filter string="Running Contracts" name="filter_running" domain="[('status', '=', 'running')]"/>
-                    <filter string="Salary filter" name="filter_salary" domain="[('total_salary', '&gt;', 200000000)]"/>
+                    <separator/>
+                    <filter string="Salary filter" name="filter_salary" domain="[('total_salary', '>', 20000000)]"/>
                 </search>
             </field>
         </record>

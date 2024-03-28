@@ -4,7 +4,7 @@
     'name': 'Test Module',
     'version': '1.0',
     'author': 'DungNM',
-    'depends': ['base'],
+    'depends': ['employee_directory'],
     'data': [
         'views/test_view.xml',
         'security/ir.model.access.csv',
