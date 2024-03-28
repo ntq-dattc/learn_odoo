@@ -7,7 +7,7 @@ class Payslip(models.Model):
     _name = 'hr.payslip'
     _description = 'Payslip'
 
-    name = fields.Char(string='Tên', compute='_compute_name', store=True)
+    name = fields.Char(string='Tên')
     start_date = fields.Date(string='Ngày bắt đầu', default=lambda self: date.today().replace(day=1))
     end_date = fields.Date(string='Ngày kết thúc', default=lambda self: (datetime.now() + relativedelta(day=31)).date())
     actual_working_hours = fields.Float(string='Số giờ làm việc thực tế')
@@ -16,8 +16,9 @@ class Payslip(models.Model):
     net_salary = fields.Float(string='Lương net')
     state = fields.Selection([
         ('new', 'New'),
-        ('confirmed', 'Đã xác nhận'),
-        ('done', 'Đã hoàn thành')],
+        ('wait payment', 'Wait payment'),
+        ('paid', 'Paid'),
+        ('close', 'Close')],
         string='Trạng thái', default='new')
     employee_id = fields.Many2one('hr.employee', string='Nhân viên')
 
