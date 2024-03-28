@@ -26,14 +26,18 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <field name="start_date"/>
-                            <field name="end_date"/>
-                            <field name="contract_type"/>
-                            <field name="signed_date"/>
-                            <field name="salary_rack"/>
-                            <field name="efficiency_wage"/>
-                            <field name="status"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="contract_type"/>
+                                <field name="signed_date"/>
+                                <field name="salary_rack"/>
+                                <field name="efficiency_wage"/>
+                            </group>
+                            <group>
+                                <field name="status"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
@@ -48,6 +52,6 @@
         </record>
 
         <!-- Menu -->
-         <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong"/>
+        <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong"/>
     </data>
 </odoo>

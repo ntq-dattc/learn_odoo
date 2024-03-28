@@ -18,9 +18,6 @@ class hop_dong(models.Model):
     _name = 'hop.dong'
     _description = 'hop dong'
 
-    def get_running_contracts(self):
-        return
-
     name = fields.Char(string='Name')
     start_date = fields.Datetime(string='Start Date: ', default=fields.Datetime.now, format='%Y-%m-%d')
     end_date = fields.Datetime(string='End Date: ')
@@ -34,4 +31,3 @@ class hop_dong(models.Model):
         ('expired', 'Expired'),
         ('pause', 'Pause')],
         string='Status', default='new')
-    running_contracts = fields.
