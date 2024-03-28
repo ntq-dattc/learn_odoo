@@ -1,12 +1,9 @@
-from mock.mock import self
-
-from odoo import models, fields
-import calendar
+from odoo import models, fields, api
 from datetime import *
 
 
 def get_signed_date():
-    signed_date =  datetime.now() + timedelta(weeks=1)
+    signed_date = datetime.now() + timedelta(weeks=1)
     if signed_date.weekday() == 5:
         signed_date += timedelta(days=2)
     elif signed_date.weekday() == 6:
@@ -31,3 +28,10 @@ class hop_dong(models.Model):
         ('expired', 'Expired'),
         ('pause', 'Pause')],
         string='Status', default='new')
+
+    total_salary = fields.Float(string='Total Salary', compute='_compute_total_salary')
+
+    @api.depends('salary_rack', 'efficiency_wage')
+    def _compute_total_salary(self):
+        for record in self:
+            record.total_salary = record.salary_rack + record.efficiency_wage

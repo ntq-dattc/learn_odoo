@@ -18,6 +18,17 @@
             </field>
         </record>
 
+        <record id="view_hop_dong_search" model="ir.ui.view">
+            <field name="name">hop.dong.search</field>
+            <field name="model">hop.dong</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Running Contracts" name="filter_running" domain="[('status', '=', 'running')]"/>
+                    <filter string="Salary filter" name="filter_salary" domain="[('total_salary', '&gt;', 200000000)]"/>
+                </search>
+            </field>
+        </record>
+
         <!-- Form View -->
         <record id="view_hop_dong_form" model="ir.ui.view">
             <field name="name">hop.dong.form</field>
@@ -25,6 +36,11 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div>
+                            <h1>
+                                Create New Contract
+                            </h1>
+                        </div>
                         <group>
                             <group>
                                 <field name="name"/>
@@ -49,6 +65,7 @@
             <field name="name">Hợp đồng</field>
             <field name="res_model">hop.dong</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_status_running': 1}</field>
         </record>
 
         <!-- Menu -->
