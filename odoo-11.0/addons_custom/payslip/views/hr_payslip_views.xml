@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_hr_payslip_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="arch" type="xml">
+                <tree string="Phiếu lương">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="actual_working_hours"/>
+                    <field name="standard_working_hours"/>
+                    <field name="gross_salary"/>
+                    <field name="net_salary"/>
+                    <field name="state"/>
+                    <field name="employee_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_hr_payslip_form" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="arch" type="xml">
+                <form string="Phiếu lương">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <field name="state" widget="statusbar" statusbar_visible="new,wait_payment,paid,close" position="replace"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="actual_working_hours"/>
+                                <field name="standard_working_hours"/>
+                            </group>
+                            <group>
+                                <field name="gross_salary"/>
+                                <field name="net_salary"/>
+                                <field name="employee_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_payslip" model="ir.actions.act_window">
+            <field name="name">Payslip</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'wait_payment')]</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_hr_payslip" name="Payslip" sequence="10" action="action_payslip"/>
+    </data>
+</odoo>
