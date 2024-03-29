@@ -8,6 +8,7 @@
     'author': 'Your Name',
     'data': [
         'views/hr_payslip_views.xml',
+        'data\payslip_sequenxe_data.xml',
     ],
     'installable': True,
     'application': True,
