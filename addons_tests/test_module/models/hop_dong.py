@@ -28,10 +28,19 @@ class hop_dong(models.Model):
         ('expired', 'Expired'),
         ('pause', 'Pause')],
         string='Status', default='new')
-    employee_id = fields.Many2one('employee.employee', string='Nhân viên')
-    total_salary = fields.Float(String="Total Salary", compute='_compute_total_salary')
+
+    employee_id = fields.Many2one('hr.employee', string='Employee')
+
+    employee_name = fields.Char(string='Employee Name', required=True, compute='_compute_employee_name')
+
+    total_salary = fields.Float(string='Total Salary', compute='_compute_total_salary')
 
     @api.depends('salary_rack', 'efficiency_wage')
     def _compute_total_salary(self):
         for record in self:
             record.total_salary = record.salary_rack + record.efficiency_wage
+
+    @api.depends('employee_id')
+    def _compute_employee_name(self):
+        for record in self:
+            record.employee_name = record.employee_id.name

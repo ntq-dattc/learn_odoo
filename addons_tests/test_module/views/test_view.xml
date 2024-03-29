@@ -14,6 +14,8 @@
                     <field name="salary_rack"/>
                     <field name="efficiency_wage"/>
                     <field name="status"/>
+                    <field name="status"/>
+                    <field name="employee_name"/>
                 </tree>
             </field>
         </record>
@@ -51,6 +53,7 @@
                                 <field name="signed_date"/>
                                 <field name="salary_rack"/>
                                 <field name="efficiency_wage"/>
+                                <field name="employee_id"/>
                             </group>
                             <group>
                                 <field name="status"/>
@@ -66,7 +69,7 @@
             <field name="name">Hợp đồng</field>
             <field name="res_model">hop.dong</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_status_running': 1}</field>
+            <field name="context">{'search_default_filter_running': 1}</field>
         </record>
 
         <!-- Menu -->
