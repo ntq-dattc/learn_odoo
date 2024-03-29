@@ -26,7 +26,7 @@ class Payslip(models.Model):
     net_salary = fields.Float(string='Lương net')
     state = fields.Selection([
         ('new', 'New'),
-        ('wait payment', 'Wait payment'),
+        ('wait_payment', 'Wait payment'),
         ('paid', 'Paid'),
         ('close', 'Close')],
         string='Trạng thái', default='new')

@@ -1,2 +1,2 @@
 from . import payslips
-from . import employee
+from . import my_employee

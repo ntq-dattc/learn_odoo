@@ -23,7 +23,7 @@
             <field name="model">hr.payslip</field>
             <field name="arch" type="xml">
                 <search>
-                    <filter string="Status wait payment" name="filter_wait_payment" domain="[('state', '=', 'paid')]"/>
+                    <filter string="Status wait payment" name="filter_wait_payment" domain="[('state', '=', 'wait_payment')]" />
                     <filter string="Salary filter" name="filter_gross_salary" domain="[('gross_salary', '>=', 20000000)]"/>
                 </search>
             </field>
@@ -67,6 +67,8 @@
             <field name="name">Payslip</field>
             <field name="res_model">hr.payslip</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{"search_default_filter_wait_payment":1}</field>
         </record>
 
         <!-- Menu Item -->
