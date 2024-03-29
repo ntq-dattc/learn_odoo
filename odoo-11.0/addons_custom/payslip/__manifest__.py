@@ -5,7 +5,7 @@
     'description': """
         Module này cho phép quản lý thông tin về các phiếu lương của nhân viên.
     """,
-    'author': 'Your Name',
+    'author': 'Dattc',
     'data': [
         'views/hr_payslip_views.xml',
         'data\payslip_sequenxe_data.xml',
