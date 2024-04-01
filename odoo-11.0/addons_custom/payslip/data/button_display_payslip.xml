@@ -5,15 +5,13 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='button_box']" position="after">
-                <div class="oe_button_box">
-                    <button name="action_view_payslips" type="object"
-                            class="oe_stat_button" string="View Payslip"
-                            icon="fa-file-text-o"
-                            attrs="{'invisible': [('id', '=', False)]}"
-                            context="{'active_id': active_id}">
-                    </button>
-                </div>
+            <xpath expr="//button[@name='toggle_active']" position="after">
+                <button name="action_view_payslips" type="object"
+                        class="oe_stat_button" string="View Payslip"
+                        icon="fa-file-text-o"
+                        attrs="{'invisible': [('id', '=', False)]}"
+                        context="{'active_id': active_id}">
+                </button>
             </xpath>
         </field>
     </record>
