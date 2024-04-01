@@ -13,6 +13,27 @@
                         context="{'active_id': active_id}">
                 </button>
             </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <!-- Add other fields here -->
+                <field name="status"/>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="before">
+                <field name="date_onboard" readonly="1" attrs="{'invisible': ['&amp;', ('status', '!=', 'draft'), ('status', '!=', 'waiting_approve'), ('status', '!=', 'approved')]}"/>
+                <field name="date_terminated" readonly="1" attrs="{'invisible': [('status', '!=', 'terminated')]}" />
+            </xpath>
+            <xpath expr="//field[@name='notes']" position="after">
+                <!-- Thêm action button submit -->
+                <button name="action_submit" string="Submit" type="object" attrs="{'invisible': [('status', 'not in', ['draft'])]}" class="oe_highlight"/>
+
+                <!-- Thêm action button approve -->
+                <button name="action_approve" string="Approve" type="object" attrs="{'invisible': [('status', 'not in', ['waiting_approve'])]}" class="oe_highlight"/>
+
+                <!-- Thêm action button terminate -->
+                <button name="action_terminate" string="Terminate" type="object" attrs="{'invisible': [('status', 'not in', ['approved'])]}" class="oe_highlight"/>
+
+                <!-- Thêm action button set to draft -->
+                <button name="action_set_to_draft" string="Set to Draft" type="object" attrs="{'invisible': [('status', '!=', 'terminated')]}" class="oe_highlight"/>
+           </xpath>
         </field>
     </record>
 
