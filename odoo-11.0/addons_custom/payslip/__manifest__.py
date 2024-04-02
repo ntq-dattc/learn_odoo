@@ -12,8 +12,6 @@
         'data/payslip_sequenxe_data.xml',
         'data/button_display_payslip.xml',
         'data/hr_job_form_inherit.xml',
-        'data/filter_employee.xml',
-        'data/display_extra_data.xml',
     ],
     'installable': True,
     'application': True,
