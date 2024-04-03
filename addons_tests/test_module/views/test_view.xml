@@ -72,6 +72,7 @@
             <field name="context">{'search_default_filter_running': 1}</field>
         </record>
 
+
         <!-- Menu -->
         <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong"/>
     </data>

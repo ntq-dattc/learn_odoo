@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="view_employee_tree" model="ir.ui.view">
+        <record id="hr.view_employee_tree" model="ir.ui.view">
             <field name="name">hr.employee.tree</field>
             <field name="model">hr.employee</field>
             <field name="arch" type="xml">
@@ -8,6 +8,7 @@
                     <field name="name"/>
                     <field name="work_phone"/>
                     <field name="work_email"/>
+                    <field name="status"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="department_id"/>
                     <field name="job_id"/>
@@ -18,7 +19,34 @@
             </field>
         </record>
 
-        <record id="view_employee_form" model="ir.ui.view">
+        <record id="hr.view_employee_filter" model="ir.ui.view">
+            <field name="name">hr.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Employees">
+                    <field name="name" string="Employees"
+                           filter_domain="['|',('work_email','ilike',self),('name','ilike',self)]"/>
+                    <field name="department_id"/>
+                    <field name="category_ids" groups="hr.group_hr_user"/>
+                    <field name="job_id"/>
+                    <filter string="Status Approved" name="filter_status" domain="[('status', '=', 'approved')]"/>
+                    <filter string="Unread Messages" name="message_needaction"
+                            domain="[('message_needaction','=',True)]"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_manager" string="Manager" domain="[]" context="{'group_by':'parent_id'}"/>
+                        <filter name="group_coach" string="Coach" domain="[]" context="{'group_by':'coach_id'}"/>
+                        <filter name="group_department" string="Department" domain="[]"
+                                context="{'group_by':'department_id'}"/>
+                        <filter name="group_job" string="Job" domain="[]" context="{'group_by':'job_id'}"/>
+                        <filter name="group_company" string="Company" domain="[]" context="{'group_by':'company_id'}"
+                                groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr.view_employee_form" model="ir.ui.view">
             <field name="name">hr.employee.form</field>
             <field name="model">hr.employee</field>
             <field name="arch" type="xml">
@@ -90,8 +118,14 @@
                                             </div>
                                         </group>
                                         <group string="Status">
-                                            <field name="gender"/>
-                                            <field name="marital"/>
+                                            <button name="action_draft" string="Draft" type="object"
+                                                    class="oe_highlight"/>
+                                            <button name="action_waiting_approve" string="Waiting Approve" type="object"
+                                                    class="oe_highlight"/>
+                                            <button name="action_approved" string="Approve" type="object"
+                                                    class="oe_highlight"/>
+                                            <button name="action_terminated" string="Terminated" type="object"
+                                                    class="oe_highlight"/>
                                         </group>
                                         <group string="Birth">
                                             <field name="birthday"/>
@@ -111,6 +145,10 @@
                                         </group>
                                     </group>
                                 </page>
+                                <page string="Work Experiences" action="action_employees">
+                                    <field name="work_experience_ids"
+                                           context="{'tree_view_ref': 'view_work_experience_tree'}"/>
+                                </page>
                             </notebook>
                         </div></div>
                     </sheet>
@@ -122,10 +160,28 @@
             </field>
         </record>
 
+        <record id="view_work_experience_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">employee.work.exp</field>
+            <field name="arch" type="xml">
+                <tree string="Work Experiences">
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="company"/>
+                    <field name="job_ids"/>
+                    <field name="level_ids"/>
+                    <field name="role_ids"/>
+                    <field name="reference"/>
+                </tree>
+            </field>
+        </record>
+
+
         <record id="action_employees" model="ir.actions.act_window">
             <field name="name">Employees</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_filter_status': 1}</field>
         </record>
 
         <menuitem id="menu_employees" name="Employee Test" action="action_employees"/>
