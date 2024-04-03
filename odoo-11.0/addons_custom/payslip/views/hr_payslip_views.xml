@@ -14,6 +14,9 @@
                     <field name="net_salary"/>
                     <field name="state"/>
                     <field name="employee_id"/>
+                    <field name="role_id" />
+                    <field name="job_id" />
+                    <field name="level_id" />
                 </tree>
             </field>
         </record>
@@ -54,6 +57,11 @@
                                 <field name="gross_salary"/>
                                 <field name="net_salary"/>
                                 <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="role_id" />
+                                <field name="job_id"/>
+                                <field name="level_id"/>
                             </group>
                         </group>
                     </sheet>

@@ -2,6 +2,7 @@
 from odoo import models, fields, api
 from datetime import date,datetime
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
 
 class Payslip(models.Model):
     _name = 'hr.payslip'
@@ -31,3 +32,26 @@ class Payslip(models.Model):
         ('close', 'Close')],
         string='Trạng thái', default='new')
     employee_id = fields.Many2one('hr.employee', string='Nhân viên')
+
+    role_id = fields.Many2one('your.role.model', string='Role', readonly=True)
+    job_id = fields.Many2one('your.job.model', string='Job', readonly=True)
+    level_id = fields.Many2one('your.level.model', string='Level', readonly=True)
+
+    @api.onchange('employee_id')
+    def _onchange_employee_id(self):
+        if self.employee_id:
+            # Tự động điền thông tin role, job, level khi chọn nhân viên
+            self.role_id = self.employee_id.role_id
+            self.job_id = self.employee_id.job_id
+            self.level_id = self.employee_id.level_id
+
+    @api.constrains('employee_id')
+    def _check_employee_id(self):
+        if not self.employee_id:
+            raise ValidationError("Employee field cannot be empty.")
+
+    @api.model
+    def create(self, values):
+        if not values.get('employee_id'):
+            raise ValidationError("Employee field cannot be empty.")
+        return super(Payslip, self).create(values)
