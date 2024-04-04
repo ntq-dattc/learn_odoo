@@ -4,7 +4,7 @@
     'name': 'Test Module',
     'version': '1.0',
     'author': 'DungNM',
-    'depends': ['base','hr'],
+    'depends': ['base', 'hr'],
     'data': [
         'views/test_view.xml',
         'views/employee.xml',

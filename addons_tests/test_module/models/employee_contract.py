@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class employee_contract(models.Model):
@@ -32,5 +33,4 @@ class employee_contract(models.Model):
         action = self.env.ref('test_module.action_hop_dong').read()[0]
         action['domain'] = [('employee_id', '=', self.id)]
         return action
-
 

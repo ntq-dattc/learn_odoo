@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import *
+from odoo.exceptions import ValidationError
 
 
 def get_signed_date():
@@ -33,6 +34,12 @@ class hop_dong(models.Model):
 
     employee_name = fields.Char(string='Employee Name', required=True, compute='_compute_employee_name')
 
+    employee_role = fields.Char(string='Employee Role')
+
+    employee_job = fields.Char(string='Employee Job')
+
+    employee_level = fields.Char(string='Employee Level')
+
     total_salary = fields.Float(string='Total Salary', compute='_compute_total_salary')
 
     @api.depends('salary_rack', 'efficiency_wage')
@@ -44,3 +51,24 @@ class hop_dong(models.Model):
     def _compute_employee_name(self):
         for record in self:
             record.employee_name = record.employee_id.name
+
+    @api.depends('employee_id')
+    def compute_job_names(self):
+        for record in self:
+            job_ids = record.employee_id.work_experience_ids.mapped('job_ids')
+            job_names = ', '.join(job_ids.mapped('name'))
+            record.job_names = job_names
+
+    @api.constrains('employee_id')
+    def check_employee_id(self):
+        for record in self:
+            if not record.employee_id:
+                raise ValidationError("Employee must be specified for the contract.")
+
+    @api.onchange('employee_id')
+    def _onchange_employee_id(self):
+        if self.employee_id:
+            self.employee_name = self.employee_id.name
+            self.employee_role = self.employee_id.work_experience_ids.role_ids
+            self.employee_job = self.employee_id.work_experience_ids.job_ids
+            self.employee_level = self.employee_id.work_experience_ids.level_ids
