@@ -59,9 +59,9 @@
                                 <field name="employee_id"/>
                             </group>
                             <group>
-                                <field name="role_id" />
-                                <field name="job_id"/>
-                                <field name="level_id"/>
+                                <field name="role_id" readonly= "1" force_save="1"/>
+                                <field name="job_id" readonly="1" force_save="1"/>
+                                <field name="level_id" readonly="1" force_save="1"/>
                             </group>
                         </group>
                     </sheet>

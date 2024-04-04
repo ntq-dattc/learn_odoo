@@ -33,9 +33,9 @@ class Payslip(models.Model):
         string='Trạng thái', default='new')
     employee_id = fields.Many2one('hr.employee', string='Nhân viên')
 
-    role_id = fields.Many2one('your.role.model', string='Role', readonly=True)
-    job_id = fields.Many2one('your.job.model', string='Job', readonly=True)
-    level_id = fields.Many2one('your.level.model', string='Level', readonly=True)
+    role_id = fields.Many2one('hr.role', string='Role')
+    job_id = fields.Many2one('hr.job', string='Job')
+    level_id = fields.Many2one('hr.level', string='Level')
 
     @api.onchange('employee_id')
     def _onchange_employee_id(self):
@@ -49,9 +49,3 @@ class Payslip(models.Model):
     def _check_employee_id(self):
         if not self.employee_id:
             raise ValidationError("Employee field cannot be empty.")
-
-    @api.model
-    def create(self, values):
-        if not values.get('employee_id'):
-            raise ValidationError("Employee field cannot be empty.")
-        return super(Payslip, self).create(values)
