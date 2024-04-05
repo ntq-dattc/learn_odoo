@@ -49,3 +49,8 @@ class MyEmployee(models.Model):
         for employee in self:
             if employee.status == 'terminated':
                 employee.status = 'draft'
+    @api.multi
+    def action_approve(self):
+        for record in self:
+            record.write({'status': 'approved'})
+        return True
