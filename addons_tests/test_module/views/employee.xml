@@ -8,12 +8,11 @@
                     <field name="name"/>
                     <field name="work_phone"/>
                     <field name="work_email"/>
-                    <field name="status"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="department_id"/>
                     <field name="job_id"/>
                     <field name="parent_id"/>
-                    <field name="coach_id" invisible="1"/>
+                    <field name="status"/>
                     <field name="message_needaction" invisible="1"/>
                 </tree>
             </field>
@@ -168,9 +167,9 @@
                     <field name="from_date"/>
                     <field name="to_date"/>
                     <field name="company"/>
-                    <field name="job_ids"/>
-                    <field name="level_ids"/>
-                    <field name="role_ids"/>
+                    <field name="job_names"/>
+                    <field name="level_names"/>
+                    <field name="role_names"/>
                     <field name="reference"/>
                 </tree>
             </field>

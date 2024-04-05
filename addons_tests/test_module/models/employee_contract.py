@@ -34,3 +34,8 @@ class employee_contract(models.Model):
         action['domain'] = [('employee_id', '=', self.id)]
         return action
 
+    @api.multi
+    def action_approve(self):
+        for record in self:
+            record.write({'status': 'approved'})
+        return True
