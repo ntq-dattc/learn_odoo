@@ -9,9 +9,9 @@ class work_exp(models.Model):
     from_date = fields.Date(string='From ', format='%Y-%m-%d', required=True)
     to_date = fields.Date(string='To ', format='%Y-%m-%d', required=True)
     company = fields.Char(string='Company ', required=True)
-    job_ids = fields.One2many('employee.job', 'work_exp_id', string='Jobs')
-    level_ids = fields.One2many('employee.level', 'work_exp_id', string='Levels')
-    role_ids = fields.One2many('employee.role', 'work_exp_id', string='Roles')
+    job_ids = fields.Many2one('employee.job', string='Jobs')
+    level_ids = fields.Many2one('employee.level', string='Levels')
+    role_ids = fields.Many2one('employee.role', string='Roles')
     reference = fields.Char(string='Reference')
 
     job_names = fields.Char(string='Job Names', related='job_ids.name', store=True)

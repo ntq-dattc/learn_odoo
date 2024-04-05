@@ -52,13 +52,6 @@ class hop_dong(models.Model):
         for record in self:
             record.employee_name = record.employee_id.name
 
-    @api.depends('employee_id')
-    def compute_job_names(self):
-        for record in self:
-            job_ids = record.employee_id.work_experience_ids.mapped('job_ids')
-            job_names = ', '.join(job_ids.mapped('name'))
-            record.job_names = job_names
-
     @api.constrains('employee_id')
     def check_employee_id(self):
         for record in self:
