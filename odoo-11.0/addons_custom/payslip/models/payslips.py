@@ -31,7 +31,7 @@ class Payslip(models.Model):
         ('paid', 'Paid'),
         ('close', 'Close')],
         string='Trạng thái', default='new')
-    employee_id = fields.Many2one('hr.employee', string='Nhân viên')
+    employee_id = fields.Many2one('hr.employee', string='Nhân viên', domain="[('status', '=', 'approved')]")
 
     role_id = fields.Many2one('hr.role', string='Role')
     job_id = fields.Many2one('hr.job', string='Job')

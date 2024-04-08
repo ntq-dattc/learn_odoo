@@ -36,9 +36,9 @@
             </xpath>
             <xpath expr="//group" position="after">
                 <group>
-                    <field name="role_id"/>
-                    <field name="level_id"/>
-                    <field name="job_id"/>
+                    <field name="role_id" attrs="{'invisible': [('status', '=', 'draft')]}"/>
+                    <field name="level_id" attrs="{'invisible': [('status', '=', 'draft')]}"/>
+                    <field name="job_id" attrs="{'invisible': [('status', '=', 'draft')]}"/>
                 </group>
             </xpath>
 
