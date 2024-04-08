@@ -20,6 +20,8 @@ class MyEmployee(models.Model):
     level_id = fields.Many2one('hr.level', string='Level')
     job_id = fields.Many2one('hr.job', string='Job')
 
+    history_employee_ids = fields.One2many('employee.history', 'employee_id', string='History Employees')
+
     # @api.multi
     def action_view_payslips(self):
         action = self.env.ref('payslip.action_payslip').read()[0]
@@ -49,8 +51,3 @@ class MyEmployee(models.Model):
         for employee in self:
             if employee.status == 'terminated':
                 employee.status = 'draft'
-    @api.multi
-    def action_approve(self):
-        for record in self:
-            record.write({'status': 'approved'})
-        return True

@@ -49,3 +49,11 @@ class Payslip(models.Model):
     def _check_employee_id(self):
         if not self.employee_id:
             raise ValidationError("Employee field cannot be empty.")
+
+    @api.model
+    def default_get(self, fields_list):
+        defaults = super(Payslip, self).default_get(fields_list)
+        if self._context.get('employee_id'):
+            employee = self.env['hr.employee'].browse(self._context['employee_id'])
+            defaults['onboard_date'] = employee.onboard_date
+        return defaults

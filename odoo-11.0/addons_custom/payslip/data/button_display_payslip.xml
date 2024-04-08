@@ -41,6 +41,12 @@
                     <field name="job_id"/>
                 </group>
             </xpath>
+
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page string="History Employee" action="action_history_employees">
+                    <field name="history_employee_ids" context="{'tree_view_ref': 'view_history_employees_tree'}"/>
+                </page>
+            </xpath>
         </field>
     </record>
 
@@ -98,4 +104,28 @@
             </tree>
         </field>
     </record>
+
+    <record id="view_history_employees_tree" model="ir.ui.view">
+        <field name="name">hr.employee.tree</field>
+        <field name="model">employee.history</field>
+        <field name="arch" type="xml">
+            <tree string="History Employee">
+                <field name="start"/>
+                <field name="end"/>
+                <field name="role_id"/>
+                <field name="job_id"/>
+                <field name="level_id"/>
+                <field name="create_at"/>
+                <field name="update_at"/>
+                <field name="time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_history_employees" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
 </odoo>
