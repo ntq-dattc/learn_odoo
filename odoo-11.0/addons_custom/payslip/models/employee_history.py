@@ -12,8 +12,6 @@ class EmployeeHistory(models.Model):
     role_id = fields.Many2one('hr.role', string='Role', required=True)
     job_id = fields.Many2one('hr.job', string='Job', required=True)
     level_id = fields.Many2one('hr.level', string='Level', required=True)
-    create_at = fields.Datetime(string='Create At', default=lambda self: datetime.now(), readonly=True)
-    update_at = fields.Datetime(string='Update At', default=lambda self: datetime.now(), readonly=True)
     time = fields.Float(string='Time (months)', compute='_compute_time', store=True)
 
     @api.depends('start', 'end')

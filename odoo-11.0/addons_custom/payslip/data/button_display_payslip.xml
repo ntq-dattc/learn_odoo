@@ -115,8 +115,8 @@
                 <field name="role_id"/>
                 <field name="job_id"/>
                 <field name="level_id"/>
-                <field name="create_at"/>
-                <field name="update_at"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
                 <field name="time"/>
             </tree>
         </field>
