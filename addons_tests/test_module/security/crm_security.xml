@@ -26,7 +26,7 @@
             <field name="perm_unlink" eval="1"/>
         </record>
 
-        <record id="menu_work_exp_manager" model="ir.model.access">
+        <record id="menu_contract_manager" model="ir.model.access">
             <field name="name">Contract Access</field>
             <field name="model_id" ref="model_hop_dong"/>
             <field name="group_id" ref="test_module.group_manager"/>
@@ -36,7 +36,7 @@
             <field name="perm_unlink" eval="0"/>
         </record>
 
-        <record id="menu_work_exp_manager_rule" model="ir.rule">
+        <record id="menu_contract_rule" model="ir.rule">
             <field name="name">Contracts Access</field>
             <field name="model_id" ref="model_hop_dong"/>
             <field name="groups" eval="[(4, ref('test_module.group_manager'))]"/>
@@ -64,6 +64,27 @@
             <field name="domain_force">[('employee_id', '=',user.employee_ids.id)]</field>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="menu_work_exp_manager" model="ir.model.access">
+            <field name="name">Contract Access</field>
+            <field name="model_id" ref="model_employee_work_exp"/>
+            <field name="group_id" ref="test_module.group_manager"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="menu_work_exp_manager_rule" model="ir.rule">
+            <field name="name">Work Exp Access</field>
+            <field name="model_id" ref="model_employee_work_exp"/>
+            <field name="groups" eval="[(4, ref('test_module.group_employee'))]"/>
+            <field name="domain_force">[('employee_id.parent_id', '=',user.employee_ids.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_unlink" eval="0"/>
         </record>

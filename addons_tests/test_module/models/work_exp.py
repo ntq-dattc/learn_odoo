@@ -49,9 +49,3 @@ class work_exp(models.Model):
                 ('id', '!=', record.id)
             ]):
                 raise ValidationError(_('Role Job Level combination must be unique!'))
-
-    @api.constrains('from_date')
-    def _check_manager_edit_permission(self):
-        for employee in self:
-            if employee.manager_id != self.env.user.employee_ids:
-                raise ValidationError("Only the employee's manager can edit the employee's information.")
