@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_payslip_hr,payslip_hr,model_hr_payslip,payslip.group_hr_manager,1,1,1,1,
+access_role_hr,role_hr,model_hr_role,payslip.group_hr_manager,1,0,0,0,
+access_level_hr,level_hr,model_hr_level,payslip.group_hr_manager,1,0,0,0,
+access_role_hr,role_hr,model_hr_role,payslip.group_hr,1,0,0,0,
+access_level_hr,level_hr,model_hr_level,payslip.group_hr,1,0,0,0,

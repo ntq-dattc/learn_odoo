@@ -54,6 +54,14 @@ class MyEmployee(models.Model):
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
+        if self._context.get('custom_employee_name_search'):
+            return self.env['hr.employee'].custom_payslip_name_search(name=name, args=args, operator=operator,
+                                                                      limit=limit)
+        else:
+            return super(MyEmployee, self).name_search(name=name, args=args, operator=operator, limit=limit)
+
+    @api.model
+    def custom_payslip_name_search(self, name='', args=None, operator='ilike', limit=100):
         domain = [('name', operator, name), ('status', '=', 'approved')]
         employees = self.search(domain, limit=limit)
         return employees.name_get()

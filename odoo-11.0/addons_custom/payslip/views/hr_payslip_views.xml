@@ -56,7 +56,7 @@
                                 <field name="state"/>
                                 <field name="gross_salary"/>
                                 <field name="net_salary"/>
-                                <field name="employee_id"/>
+                                <field name="employee_id" context="{'custom_employee_name_search': True}"/>
                             </group>
                             <group>
                                 <field name="role_id" readonly= "1" force_save="1"/>
