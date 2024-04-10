@@ -40,7 +40,7 @@
     <!-- Phân quyền cho sửa Employee -->
     <record id="access_new_model_form" model="ir.model.access">
         <field name="name">Access New Model Form</field>
-        <field name="model_id" ref="model_hr_payslip"/> <!-- Thay thế model_hr_payslip bằng ID của model mới của bạn -->
+        <field name="model_id" ref="model_hr_payslip"/>
         <field name="group_id" ref="group_hr"/>
         <field name="perm_write" eval="False"/>
         <field name="perm_read" eval="True"/>

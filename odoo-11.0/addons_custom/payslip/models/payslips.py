@@ -23,15 +23,15 @@ class Payslip(models.Model):
     end_date = fields.Date(string='Ngày kết thúc', default=lambda self: (datetime.now() + relativedelta(day=31)).date())
     actual_working_hours = fields.Float(string='Số giờ làm việc thực tế')
     standard_working_hours = fields.Float(string='Số giờ công tiêu chuẩn')
-    gross_salary = fields.Float(string='Lương gross')
-    net_salary = fields.Float(string='Lương net')
+    gross_salary = fields.Float(string='Lương gross', groups='payslip.group_hr_manager')
+    net_salary = fields.Float(string='Lương net', groups='payslip.group_hr_manager')
     state = fields.Selection([
         ('new', 'New'),
         ('wait_payment', 'Wait payment'),
         ('paid', 'Paid'),
         ('close', 'Close')],
         string='Trạng thái', default='new')
-    employee_id = fields.Many2one('hr.employee', string='Nhân viên', domain="[('status', '=', 'approved')]")
+    employee_id = fields.Many2one('hr.employee', string='Nhân viên')
 
     role_id = fields.Many2one('hr.role', string='Role')
     job_id = fields.Many2one('hr.job', string='Job')

@@ -51,3 +51,9 @@ class MyEmployee(models.Model):
         for employee in self:
             if employee.status == 'terminated':
                 employee.status = 'draft'
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        domain = [('name', operator, name), ('status', '=', 'approved')]
+        employees = self.search(domain, limit=limit)
+        return employees.name_get()
