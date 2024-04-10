@@ -8,7 +8,7 @@
     'data': [
         'views/test_view.xml',
         'views/employee.xml',
-        'security/ir.model.access.csv',
+        'security/crm_security.xml',
     ],
     'installable': True,
     'application': True,

@@ -11,11 +11,9 @@
                     <field name="end_date"/>
                     <field name="contract_type"/>
                     <field name="signed_date"/>
-                    <field name="salary_rack"/>
-                    <field name="efficiency_wage"/>
+                    <field name="salary_rack" groups="test_module.group_hr"/>
+                    <field name="efficiency_wage" groups="test_module.group_hr"/>
                     <field name="status"/>
-                    <field name="status"/>
-                    <field name="employee_name"/>
                     <field name="employee_role"/>
                     <field name="employee_job"/>
                     <field name="employee_level"/>

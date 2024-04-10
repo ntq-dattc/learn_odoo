@@ -7,4 +7,3 @@ class level(models.Model):
 
     name = fields.Char(string='Level')
     code = fields.Char(string='Level Code')
-    work_exp_id = fields.Many2one('employee.work.exp')

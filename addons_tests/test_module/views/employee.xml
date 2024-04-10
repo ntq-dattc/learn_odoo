@@ -52,7 +52,7 @@
                     </button>
                 </xpath>
                 <xpath expr="//page[@name='hr_settings']" position="after">
-                    <page string="Work Experiences" action="action_employees">
+                    <page string="Work Experiences" action="action_employees_work_exp">
                         <field name="work_experience_ids"
                                context="{'tree_view_ref': 'view_work_experience_tree'}"/>
                     </page>
@@ -68,12 +68,18 @@
                     <field name="from_date"/>
                     <field name="to_date"/>
                     <field name="company"/>
-                    <field name="job_names"/>
-                    <field name="level_names"/>
-                    <field name="role_names"/>
+                    <field name="job_ids"/>
+                    <field name="level_ids"/>
+                    <field name="role_ids"/>
                     <field name="reference"/>
                 </tree>
             </field>
+        </record>
+
+        <record id="action_employees_work_exp" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">employee.work.exp</field>
+            <field name="view_mode">tree</field>
         </record>
 
         <record id="action_employees" model="ir.actions.act_window">

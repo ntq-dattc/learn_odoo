@@ -7,4 +7,3 @@ class role(models.Model):
 
     name = fields.Char(string='Role',)
     code = fields.Char(string='Role Code')
-    work_exp_id = fields.Many2one('employee.work.exp')
