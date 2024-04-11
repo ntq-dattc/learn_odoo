@@ -68,9 +68,9 @@
                     <field name="from_date"/>
                     <field name="to_date"/>
                     <field name="company"/>
-                    <field name="job_ids"/>
-                    <field name="level_ids"/>
-                    <field name="role_ids"/>
+                    <field name="job_id"/>
+                    <field name="level_id"/>
+                    <field name="role_id"/>
                     <field name="reference"/>
                 </tree>
             </field>

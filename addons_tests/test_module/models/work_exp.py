@@ -11,9 +11,9 @@ class work_exp(models.Model):
     from_date = fields.Date(string='From ', format='%Y-%m-%d', required=True)
     to_date = fields.Date(string='To ', format='%Y-%m-%d', required=True)
     company = fields.Char(string='Company ', required=True)
-    job_ids = fields.Many2one('employee.job', string='Jobs')
-    level_ids = fields.Many2one('employee.level', string='Levels')
-    role_ids = fields.Many2one('employee.role', string='Roles')
+    job_id = fields.Many2one('employee.job', string='Jobs')
+    level_id = fields.Many2one('employee.level', string='Levels')
+    role_id = fields.Many2one('employee.role', string='Roles')
     reference = fields.Char(string='Reference')
 
     manager_id = fields.Many2one('hr.employee')
@@ -38,14 +38,15 @@ class work_exp(models.Model):
         if self.to_date < self.from_date:
             raise ValidationError(_('From date must be before to date!'))
 
-    @api.constrains('job_ids', 'level_ids', 'role_ids')
+    @api.constrains('job_id', 'level_id', 'role_id')
     def _check_unique_work_exp(self):
-        for record in self:
-            if self.search_count([
-                ('role_ids', '=', record.role_ids.id),
-                ('job_ids', '=', record.job_ids.id),
-                ('level_ids', '=', record.level_ids.id),
-                ('employee_id', '=', record.employee_id.id),
-                ('id', '!=', record.id)
-            ]):
-                raise ValidationError(_('Role Job Level combination must be unique!'))
+        if not self._check_date():
+            for record in self:
+                if self.search_count([
+                    ('role_id', '=', record.role_id.id),
+                    ('job_id', '=', record.job_id.id),
+                    ('level_id', '=', record.level_id.id),
+                    ('employee_id', '=', record.employee_id.id),
+                    ('id', '!=', record.id)
+                ]):
+                    raise ValidationError(_('Role Job Level combination must be unique!'))
