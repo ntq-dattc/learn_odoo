@@ -34,11 +34,11 @@ class hop_dong(models.Model):
 
     employee_name = fields.Char(string='Employee Name', required=True, compute='_compute_employee_name')
 
-    employee_role = fields.Char(string='Employee Role')
+    employee_role = fields.Char(string='Employee Role', compute='_get_contract_information')
 
-    employee_job = fields.Char(string='Employee Job')
+    employee_job = fields.Char(string='Employee Job', compute='_get_contract_information')
 
-    employee_level = fields.Char(string='Employee Level')
+    employee_level = fields.Char(string='Employee Level', compute='_get_contract_information')
 
     total_salary = fields.Float(string='Total Salary', compute='_compute_total_salary')
 
@@ -69,3 +69,25 @@ class hop_dong(models.Model):
                 self.employee_role = work_experience.role_id
                 self.employee_job = work_experience.job_id
                 self.employee_level = work_experience.level_id
+
+    @api.depends('start_date', 'end_date', 'employee_id')
+    def _get_contract_information(self):
+        for contract in self:
+            if contract.start_date and contract.end_date and contract.employee_id:
+                work_experience = self.env['employee.work.exp'].search([
+                    ('employee_id', '=', contract.employee_id.id),
+                    ('from_date', '<=', contract.start_date),
+                    ('to_date', '>=', contract.end_date)
+                ], limit=1)
+                if work_experience:
+                    self.employee_role = work_experience.role_id
+                    self.employee_job = work_experience.job_id
+                    self.employee_level = work_experience.level_id
+                else:
+                    self.employee_role = False
+                    self.employee_job = False
+                    self.employee_level = False
+            else:
+                self.employee_role = False
+                self.employee_job = False
+                self.employee_level = False
