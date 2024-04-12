@@ -76,7 +76,7 @@
         </record>
 
         <!-- Menu -->
-        <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong"/>
+        <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong" groups="test_module.group_hr,test_module.group_manager"/>
     </data>
 </odoo>
 

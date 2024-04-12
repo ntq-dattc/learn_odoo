@@ -16,8 +16,6 @@ class work_exp(models.Model):
     role_id = fields.Many2one('employee.role', string='Roles')
     reference = fields.Char(string='Reference')
 
-    manager_id = fields.Many2one('hr.employee')
-
     def _check_date(self):
         for record in self:
             if not record.from_date or not record.to_date:

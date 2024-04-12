@@ -62,6 +62,10 @@ class hop_dong(models.Model):
     def _onchange_employee_id(self):
         if self.employee_id:
             self.employee_name = self.employee_id.name
-            self.employee_role = self.employee_id.work_experience_ids.role_ids
-            self.employee_job = self.employee_id.work_experience_ids.job_ids
-            self.employee_level = self.employee_id.work_experience_ids.level_ids
+
+            work_experiences = self.employee_id.work_experience_ids
+            if work_experiences:
+                work_experience = work_experiences[0]
+                self.employee_role = work_experience.role_id
+                self.employee_job = work_experience.job_id
+                self.employee_level = work_experience.level_id
