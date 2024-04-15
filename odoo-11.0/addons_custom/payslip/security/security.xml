@@ -2,7 +2,8 @@
 <odoo>
     <!-- Nhóm quyền cho nhân viên -->
     <record id="group_employee" model="res.groups">
-        <field name="name">Employee</field>
+        <field name="name">Employee Groups</field>
+        <field name="comment">Employee Groups</field>
     </record>
 
     <!-- Nhóm quyền cho nhân sự -->
