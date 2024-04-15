@@ -10,8 +10,8 @@
                     <field name="end_date"/>
                     <field name="actual_working_hours"/>
                     <field name="standard_working_hours"/>
-                    <field name="gross_salary" group="group_hr_manager"/>
-                    <field name="net_salary" group="group_hr_manager"/>
+                    <field name="gross_salary"/>
+                    <field name="net_salary"/>
                     <field name="state"/>
                     <field name="employee_id"/>
                     <field name="role_id" />
