@@ -8,6 +8,8 @@
     'author': 'Dattc',
     'depends': ['base', 'hr'],
     'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'views/hr_payslip_views.xml',
         'data/payslip_sequenxe_data.xml',
         'data/button_display_payslip.xml',

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Nhóm quyền cho nhân viên -->
+    <record id="group_employee" model="res.groups">
+        <field name="name">Employee Groups</field>
+        <field name="comment">Employee Groups</field>
+    </record>
+
+    <!-- Nhóm quyền cho nhân sự -->
+    <record id="group_hr" model="res.groups">
+        <field name="name">Hr</field>
+    </record>
+
+    <!-- Nhóm quyền cho trưởng phòng nhân sự -->
+    <record id="group_hr_manager" model="res.groups">
+        <field name="name">Hr manager</field>
+        <field name="implied_ids" eval="[(4, ref('group_hr'))]"/>
+    </record>
+
+    <!-- Phân quyền cho sửa History Employee -->
+    <record id="access_history_employee_form" model="ir.model.access">
+        <field name="name">Access History Employee Form</field>
+        <field name="model_id" ref="model_employee_history"/>
+        <field name="group_id" ref="group_hr"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="access_history_employee_form_manager" model="ir.model.access">
+        <field name="name">Access History Employee Form (Manager)</field>
+        <field name="model_id" ref="model_employee_history"/>
+        <field name="group_id" ref="group_hr_manager"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Phân quyền cho sửa Employee -->
+    <record id="access_new_model_form" model="ir.model.access">
+        <field name="name">Access New Model Form</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="group_id" ref="group_hr"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>
