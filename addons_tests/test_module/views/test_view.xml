@@ -1,5 +1,59 @@
 <odoo>
     <data>
+        <report
+                id="action_contract_template_test"
+                string="Contract"
+                model="hop.dong"
+                report_type="qweb-pdf"
+                name="test_module.report_contract_template_test"
+                file="test_module.report_contract_template_test"
+                print_report_name="'Contract'"
+        />
+        <template id="report_contract_template_test">
+            <t t-call="web.basic_layout">
+                <t t-set="contract" t-value="docs[0]"/>
+                <style>
+                    .contract-info {
+                    text-align: left;
+                    font-size: 10pt;
+                    margin-bottom: 5pt;
+                    }
+                </style>
+                <div class="page">
+                    <div class="col-sm-6">
+                        <div align="center" style="font-size:10pt;margin-bottom:5pt;">
+                            <h1>Contract Informations</h1>
+                            <hr/>
+                            <div class="contract-info">Employee's Name:
+                                <t t-esc="contract.employee_id.name"/>
+                            </div>
+                            <div class="contract-info">Contract's Start Date:
+                                <t t-esc="contract.start_date"/>
+                            </div>
+                            <div class="contract-info">Contract's End Date:
+                                <t t-esc="contract.end_date"/>
+                            </div>
+                            <div class="contract-info">Contract's Signed Date:
+                                <t t-esc="contract.signed_date"/>
+                            </div>
+                            <div class="contract-info">Contract's Type:
+                                <t t-esc="contract.contract_type"/>
+                            </div>
+                            <div class="contract-info">Contract's Salary Rack:
+                                <t t-esc="contract.salary_rack"/>
+                            </div>
+                            <div class="contract-info">Contract's Efficiency Wage:
+                                <t t-esc="contract.efficiency_wage"/>
+                            </div>
+                            <div class="contract-info">Contract's Status:
+                                <t t-esc="contract.status"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
         <!-- Tree View -->
         <record id="view_hop_dong_tree" model="ir.ui.view">
             <field name="name">hop.dong.tree</field>
@@ -75,8 +129,8 @@
             <field name="context">{'search_default_filter_running': 1}</field>
         </record>
 
-        <!-- Menu -->
-        <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong" groups="test_module.group_hr,test_module.group_manager"/>
+        <menuitem id="menu_hop_dong" name="Hợp đồng" action="action_hop_dong"
+                  groups="test_module.group_hr,test_module.group_manager"/>
     </data>
 </odoo>
 
