@@ -1,5 +1,96 @@
 <odoo>
     <data>
+        <report
+                id="action_report_payslip_template_test"
+                string="Payslip"
+                model="hr.payslip"
+                report_type="qweb-pdf"
+                name="payslip.report_payslip_template_test"
+                file="payslip.report_payslip_template_test"
+                print_report_name="'Payslip'"
+        />
+
+        <template id="report_payslip_template_test">
+            <t t-call="web.external_layout">
+                <style>
+                    .payslip-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                    }
+
+                    .payslip-table th, .payslip-table td {
+                        border: 1px solid #dddddd;
+                        padding: 8px;
+                        text-align: left;
+                    }
+
+                    .payslip-table th {
+                        background-color: #f2f2f2;
+                    }
+                </style>
+                <div class="page">
+                    <div class="text-center">
+                        <h1>Payslip Report</h1>
+                    </div>
+                    <t t-foreach="docs" t-as="payslip">
+                        <table class="payslip-table">
+                            <tr>
+                                <th>Name</th>
+                                <td><span t-field="payslip.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Start Date</th>
+                                <td><span t-field="payslip.start_date"/></td>
+                            </tr>
+                            <tr>
+                                <th>End Date</th>
+                                <td><span t-field="payslip.end_date"/></td>
+                            </tr>
+                            <tr>
+                                <th>Actual Working Hours</th>
+                                <td><span t-field="payslip.actual_working_hours"/></td>
+                            </tr>
+                            <tr>
+                                <th>Standard Working Hours</th>
+                                <td><span t-field="payslip.standard_working_hours"/></td>
+                            </tr>
+                            <t t-if="env['ir.ui.view'].user_has_groups('payslip.group_hr_manager')">
+                                <tr>
+                                    <th>Gross Salary</th>
+                                    <td><span t-field="payslip.gross_salary"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Net Salary</th>
+                                    <td><span t-field="payslip.net_salary"/></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <th>State</th>
+                                <td><span t-field="payslip.state"/></td>
+                            </tr>
+                            <tr>
+                                <th>Employee</th>
+                                <td><span t-field="payslip.employee_id"/></td>
+                            </tr>
+                            <tr>
+                                <th>Role</th>
+                                <td><span t-field="payslip.role_id"/></td>
+                            </tr>
+                            <tr>
+                                <th>Job</th>
+                                <td><span t-field="payslip.job_id"/></td>
+                            </tr>
+                            <tr>
+                                <th>Level</th>
+                                <td><span t-field="payslip.level_id"/></td>
+                            </tr>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+
         <!-- Tree View -->
         <record id="view_hr_payslip_tree" model="ir.ui.view">
             <field name="model">hr.payslip</field>
@@ -14,9 +105,9 @@
                     <field name="net_salary"/>
                     <field name="state"/>
                     <field name="employee_id"/>
-                    <field name="role_id" />
-                    <field name="job_id" />
-                    <field name="level_id" />
+                    <field name="role_id"/>
+                    <field name="job_id"/>
+                    <field name="level_id"/>
                 </tree>
             </field>
         </record>
@@ -26,8 +117,10 @@
             <field name="model">hr.payslip</field>
             <field name="arch" type="xml">
                 <search>
-                    <filter string="Status wait payment" name="filter_wait_payment" domain="[('state', '=', 'wait_payment')]" />
-                    <filter string="Salary filter" name="filter_gross_salary" domain="[('gross_salary', '>=', 20000000)]"/>
+                    <filter string="Status wait payment" name="filter_wait_payment"
+                            domain="[('state', '=', 'wait_payment')]"/>
+                    <filter string="Salary filter" name="filter_gross_salary"
+                            domain="[('gross_salary', '>=', 20000000)]"/>
                 </search>
             </field>
         </record>
@@ -59,7 +152,7 @@
                                 <field name="employee_id" context="{'custom_employee_name_search': True}"/>
                             </group>
                             <group>
-                                <field name="role_id" readonly= "1" force_save="1"/>
+                                <field name="role_id" readonly="1" force_save="1"/>
                                 <field name="job_id" readonly="1" force_save="1"/>
                                 <field name="level_id" readonly="1" force_save="1"/>
                             </group>
@@ -76,7 +169,7 @@
             <field name="res_model">hr.payslip</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
-            <field name="context">{"search_default_filter_wait_payment":1}</field>
+            <field name="context">{"search_default_filter_wait_payment": 1}</field>
         </record>
 
         <!-- Menu Item -->
