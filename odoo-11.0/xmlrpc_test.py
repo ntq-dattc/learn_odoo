@@ -32,12 +32,27 @@ def delete_payslip(payslip_id):
 
 # Hàm lấy danh sách tất cả bản ghi Payslip
 def get_all_payslips():
-    payslips = models.execute_kw(db, uid, password, 'hr.payslip', 'search_read', [[]], {'fields': ['name', 'start_date', 'end_date', 'actual_working_hours', 'standard_working_hours', 'gross_salary', 'net_salary', 'state', 'employee_id', 'role_id', 'job_id', 'level_id']})
+    payslips = models.execute_kw(db, uid, password, 'hr.payslip', 'search_read', [[]], {
+        'fields': ['name', 'start_date', 'end_date', 'actual_working_hours', 'standard_working_hours', 'gross_salary',
+                   'net_salary', 'state', 'employee_id', 'role_id', 'job_id', 'level_id']})
+
+    for payslip in payslips:  # Duyệt qua từng bản ghi trong danh sách payslips
+        payslip['employee_id'] = {'id': payslip['employee_id'][0], 'name': payslip['employee_id'][1]}
+        payslip['job_id'] = {'id': payslip['job_id'][0], 'name': payslip['job_id'][1]}
+        payslip['level_id'] = {'id': payslip['level_id'][0], 'name': payslip['level_id'][1]}
+        payslip['role_id'] = {'id': payslip['role_id'][0], 'name': payslip['role_id'][1]}
+
     return payslips
+
 
 # Hàm lấy thông tin chi tiết của một bản ghi Payslip
 def get_payslip_details(payslip_id):
     payslip = models.execute_kw(db, uid, password, 'hr.payslip', 'read', [payslip_id], {'fields': ['name', 'start_date', 'end_date', 'actual_working_hours', 'standard_working_hours', 'gross_salary', 'net_salary', 'state', 'employee_id', 'role_id', 'job_id', 'level_id']})
+    payslip[0]['employee_id'] = {'id': payslip[0]['employee_id'][0], 'name': payslip[0]['employee_id'][1]}
+    payslip[0]['role_id'] = {'id': payslip[0]['role_id'][0], 'name': payslip[0]['role_id'][1]}
+    payslip[0]['job_id'] = {'id': payslip[0]['job_id'][0], 'name': payslip[0]['job_id'][1]}
+    payslip[0]['level_id'] = {'id': payslip[0]['level_id'][0], 'name': payslip[0]['level_id'][1]}
+
     return payslip
 
 # Dữ liệu mới cho việc tạo mới một bản ghi Payslip
@@ -75,7 +90,7 @@ payslip_data_update = {
 # payslip_id = create_payslip(payslip_data)
 # update_payslip(payslip_id, payslip_data_update)
 # delete_payslip(payslip_id)
-# print get_all_payslips()
-print get_payslip_details(35)
+print get_all_payslips()
+# print get_payslip_details(35)
 
 print "done"
