@@ -1,5 +1,94 @@
 <odoo>
     <data>
+        <report
+                id="action_report_payslip_template_test"
+                string="Payslip"
+                model="hr.payslip"
+                report_type="qweb-pdf"
+                name="payslip.report_payslip_template_test"
+                file="payslip.report_payslip_template_test"
+                print_report_name="'Payslip'"
+        />
+
+        <template id="report_payslip_template_test">
+            <t t-call="web.external_layout">
+                <t t-set="report_title">Phiếu lương</t>
+                <t t-set="report_company">CÔNG TY CỔ PHẦN NTQ SOLUTION</t>
+                <t t-set="report_email">ntq@ntq.com</t>
+                <t t-set="report_web">http://www.ntq.com</t>
+                <div class="page" style="margin: auto; width: 80%;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h1 style="color: #3498db;"><t t-esc="report_company"/></h1>
+                        <h1 style="color: #2ecc71;"><t t-esc="report_title"/></h1>
+                    </div>
+                    <t t-foreach="docs" t-as="payslip">
+                        <div style="margin-bottom: 20px;">
+                            <div style="text-align: center;">
+                                <h5 style="color: #9b59b6;">
+                                    Bảng lương của nhân viên:
+                                    <b><span t-field="payslip.employee_id"/></b>
+                                </h5>
+                                <h5 style="color: #e74c3c;">
+                                    Kỳ lương từ
+                                    <span t-field="payslip.start_date"/>
+                                    đến
+                                    <span t-field="payslip.end_date"/>
+                                </h5>
+                            </div>
+                            <table class="table table-bordered" style="background-color: #f5f5f5; width: 100%;">
+                                <thead style="background-color: #3498db; color: #fff;">
+                                    <tr>
+                                        <th style="width: 70%">Name</th>
+                                        <th style="width: 30%">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Actual Working Hours</td>
+                                        <td><span t-field="payslip.actual_working_hours"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Standard Working Hours</td>
+                                        <td><span t-field="payslip.standard_working_hours"/></td>
+                                    </tr>
+                                    <t t-if="env['ir.ui.view'].user_has_groups('payslip.group_hr_manager')">
+                                        <tr>
+                                            <td>Gross Salary</td>
+                                            <td><span t-field="payslip.gross_salary"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Net Salary</td>
+                                            <td><span t-field="payslip.net_salary"/></td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td>State</td>
+                                        <td><span t-field="payslip.state"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Role</td>
+                                        <td><span t-field="payslip.role_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Job</td>
+                                        <td><span t-field="payslip.job_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Level</td>
+                                        <td><span t-field="payslip.level_id"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p>Email: <a href="mailto:"><t t-esc="report_email"/></a></p>
+                        <p>Web: <a href="#"><t t-esc="report_web"/></a></p>
+                    </div>
+                </div>
+            </t>
+        </template>
+
         <!-- Tree View -->
         <record id="view_hr_payslip_tree" model="ir.ui.view">
             <field name="model">hr.payslip</field>
@@ -14,9 +103,9 @@
                     <field name="net_salary"/>
                     <field name="state"/>
                     <field name="employee_id"/>
-                    <field name="role_id" />
-                    <field name="job_id" />
-                    <field name="level_id" />
+                    <field name="role_id"/>
+                    <field name="job_id"/>
+                    <field name="level_id"/>
                 </tree>
             </field>
         </record>
@@ -26,8 +115,10 @@
             <field name="model">hr.payslip</field>
             <field name="arch" type="xml">
                 <search>
-                    <filter string="Status wait payment" name="filter_wait_payment" domain="[('state', '=', 'wait_payment')]" />
-                    <filter string="Salary filter" name="filter_gross_salary" domain="[('gross_salary', '>=', 20000000)]"/>
+                    <filter string="Status wait payment" name="filter_wait_payment"
+                            domain="[('state', '=', 'wait_payment')]"/>
+                    <filter string="Salary filter" name="filter_gross_salary"
+                            domain="[('gross_salary', '>=', 20000000)]"/>
                 </search>
             </field>
         </record>
@@ -59,7 +150,7 @@
                                 <field name="employee_id" context="{'custom_employee_name_search': True}"/>
                             </group>
                             <group>
-                                <field name="role_id" readonly= "1" force_save="1"/>
+                                <field name="role_id" readonly="1" force_save="1"/>
                                 <field name="job_id" readonly="1" force_save="1"/>
                                 <field name="level_id" readonly="1" force_save="1"/>
                             </group>
@@ -76,7 +167,7 @@
             <field name="res_model">hr.payslip</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
-            <field name="context">{"search_default_filter_wait_payment":1}</field>
+            <field name="context">{"search_default_filter_wait_payment": 1}</field>
         </record>
 
         <!-- Menu Item -->
