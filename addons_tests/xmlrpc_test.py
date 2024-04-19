@@ -17,17 +17,22 @@ uid = common.authenticate(db, username, password, {})
 
 models = xmlrpclib.ServerProxy('{}/xmlrpc/2/object'.format(url))
 
+
 def create_contract(data):
     contract_id = models.execute_kw(db, uid, password, 'hop.dong', 'create', [data])
     return contract_id
+
 
 def update_contract(contract_id, data):
     models.execute_kw(db, uid, password, 'hop.dong', 'write', [[contract_id], data])
     return True
 
+
 def get_all_contracts():
     contracts = models.execute_kw(
-        db, uid, password, 'hop.dong', 'search_read', [[]], {'fields': ['name', 'start_date', 'end_date', 'contract_type', 'signed_date', 'salary_rack', 'efficiency_wage', 'status', 'employee_id']}
+        db, uid, password, 'hop.dong', 'search_read', [[]], {
+            'fields': ['name', 'start_date', 'end_date', 'contract_type', 'signed_date', 'salary_rack',
+                       'efficiency_wage', 'status', 'employee_id']}
     )
 
     contract_data = {}
@@ -72,13 +77,3 @@ def get_contract_details(payslip_id):
     }
 
     return contract_data
-
-
-@app.route('/contract')
-def index():
-    contracts = get_all_contracts()
-
-    return render_template('index.html', contracts=contracts)
-
-if _name_ == '__main__':
-    app.run(debug=True)
