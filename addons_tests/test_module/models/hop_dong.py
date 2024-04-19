@@ -12,6 +12,12 @@ def get_signed_date():
     return signed_date
 
 
+def get_all_contract_infor():
+    return{
+
+    }
+
+
 class hop_dong(models.Model):
     _name = 'hop.dong'
     _description = 'hop dong'
@@ -34,11 +40,11 @@ class hop_dong(models.Model):
 
     employee_name = fields.Char(string='Employee Name', required=True, compute='_compute_employee_name')
 
-    employee_role = fields.Char(string='Employee Role', compute='_get_contract_information')
+    employee_role = fields.Char(string='Employee Role', related='')
 
-    employee_job = fields.Char(string='Employee Job', compute='_get_contract_information')
+    employee_job = fields.Char(string='Employee Job', related='')
 
-    employee_level = fields.Char(string='Employee Level', compute='_get_contract_information')
+    employee_level = fields.Char(string='Employee Level', related='')
 
     total_salary = fields.Float(string='Total Salary', compute='_compute_total_salary')
 
@@ -91,3 +97,20 @@ class hop_dong(models.Model):
                 self.employee_role = False
                 self.employee_job = False
                 self.employee_level = False
+
+    def get_contract_infor(self):
+        return {
+            self.name,
+            self.employee_name,
+            self.contract_type,
+            self.start_date,
+            self.end_date,
+            self.signed_date,
+            self.salary_rack,
+            self.efficiency_wage,
+            self.status
+        }
+    #
+    # def get_all_contracts_infor(self):
+    #     for contract in self:
+
